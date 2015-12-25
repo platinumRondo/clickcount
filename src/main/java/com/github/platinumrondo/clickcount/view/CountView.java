@@ -1,10 +1,13 @@
 package com.github.platinumrondo.clickcount.view;
 
+import java.awt.BorderLayout;
+import java.awt.Font;
 import java.awt.GridLayout;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
 import com.github.platinumrondo.clickcount.model.CountModel;
@@ -29,22 +32,24 @@ public class CountView extends JFrame {
     }
 
     private void initComponents() {
-        setLayout(new GridLayout());
         label = new JLabel(Long.toString(model.get()));
         label.setHorizontalAlignment(SwingConstants.CENTER);
+        label.setFont(label.getFont().deriveFont(Font.BOLD, 26));
         add(label);
+        JPanel buttonPanel = new JPanel(new GridLayout(2,1));
         click = new JButton("click");
         click.addActionListener((e) -> {
             model.increment();
             updateLabel();
         });
-        add(click);
+        buttonPanel.add(click);
         reset = new JButton("reset");
         reset.addActionListener((e) -> {
             model.reset();
             updateLabel();
         });
-        add(reset);
+        buttonPanel.add(reset);
+        add(buttonPanel, BorderLayout.EAST);
     }
     
     private void updateLabel() {
