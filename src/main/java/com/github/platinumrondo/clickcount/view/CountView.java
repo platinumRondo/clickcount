@@ -7,6 +7,7 @@ import java.awt.GridLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
@@ -45,8 +46,7 @@ public class CountView extends JFrame {
         buttonPanel.add(click);
         reset = new JButton("reset");
         reset.addActionListener((e) -> {
-            model.reset();
-            updateLabel();
+            askConfirmForReset();
         });
         buttonPanel.add(reset);
         add(buttonPanel, BorderLayout.EAST);
@@ -54,6 +54,14 @@ public class CountView extends JFrame {
     
     private void updateLabel() {
         label.setText(Long.toString(model.get()));
+    }
+    
+    private void askConfirmForReset() {
+        int res = JOptionPane.showConfirmDialog(this, "Reset?", "", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+        if (res == JOptionPane.OK_OPTION) {
+            model.reset();
+            updateLabel();
+        }
     }
 
 }
